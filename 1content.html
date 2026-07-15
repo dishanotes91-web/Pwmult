@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+ <head>
+  <script src="/global-auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title id="pageTitle">PW  — Loading...</title>
+  <link rel="icon" type="image/png" href="https://d2bps9p1kiy4ka.cloudfront.net/5b09189f7285894d9130ccd0/e00a5c58-461c-4c43-a911-d606e00ad53b.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:wght@300;400;500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg:#F5F2EB; --bg2:#ECEAE2; --ink:#1A1814; --ink2:#6B6760; --ink3:#B0ADA7;
+  --accent:#0ea5e9; --accentl:#7dd3fc; --accentb:rgba(14, 165, 233, .08);
+  --green:#2D6A3F; --greenl:#E4F0E8;
+  --card:#FFFDFB; --border:rgba(26,24,20,.1); --borderh:rgba(26,24,20,.2);
+  --shadow:0 18px 50px rgba(26,24,20,.08);
+  --primary: #0ea5e9;
+  --primary2: #7dd3fc;
+  --danger: #0ea5e9;
+  --success: #2D6A3F;
+}
+ 
+/* Original CSS Variables retained for context, but will be overridden by PW by AS Multiverse tokens */
+:root {
+  --bg-original: #f3f6ff;
+  --card-original: rgba(255, 255, 255, 0.9);
+  --text-original: #111827;
+  --muted-original: #6b7280;
+  --primary-original: #0ea5e9;
+  --primary2-original: #7dd3fc;
+  --border-original: rgba(17, 24, 39, 0.08);
+  --shadow-original: 0 18px 50px rgba(39, 41, 61, 0.12);
+  --danger-original: #dc2626;
+  --success-original: #16a34a;
+}
+ 
+/* Dark theme overrides */
+html[data-theme="dark"] {
+  --bg-original: #000000;
+  --card-original: rgba(10, 10, 10, 0.98);
+  --text-original: #e5e7eb;
+  --muted-original: #94a3b8;
+  --primary-original: #38bdf8;
+  --primary2-original: #0284c7;
+  --border-original: rgba(148, 163, 184, 0.4);
+  --shadow-original: 0 18px 50px rgba(0,0,0,0.55);
+  --danger-original: #f97373;
+  --success-original: #34d399;
+}
+ 
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  outline:none;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+ 
+body,html{
+  min-height:100vh;
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, .08), transparent 30%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, .08), transparent 28%),
+    var(--bg);
+  color:var(--ink);
+}
+ 
+/* Header / top bar */
+ 
+.app-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:50;
+  min-height:66px;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+ 
+html[data-theme="dark"] .app-header{
+  background:rgba(0,0,0,0.8);
+}
+ 
+.brand-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+ 
+.back-btn{
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  background:var(--card);
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  box-shadow:0 10px 28px rgba(26,24,20,.12);
+  border:1px solid var(--border);
+  transition:0.2s ease;
+  flex:0 0 auto;
+  cursor:pointer;
+}
+ 
+.back-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 32px rgba(26,24,20,.18);
+}
+ 
+.back-btn:active{
+  transform:scale(0.95);
+}
+ 
+.back-btn svg{
+  width:20px;
+  height:20px;
+  stroke:var(--primary);
+  stroke-width:2.4;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+ 
+.brand-text{
+  min-width:0;
+}
+ 
+.brand-text h1{
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1px;
+  font-size:clamp(16px,3.5vw,22px);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:62vw;
+}
+ 
+.brand-text p{
+  margin-top:2px;
+  color:var(--ink3);
+  font-size:12px;
+}
+ 
+/* Theme toggle */
+ 
+.theme-toggle{
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  box-shadow:0 10px 28px rgba(26,24,20,.08);
+  transition:0.2s ease;
+  flex:0 0 auto;
+}
+ 
+.theme-toggle:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 32px rgba(26,24,20,.14);
+}
+ 
+.theme-toggle span{
+  font-size:18px;
+}
+ 
+/* Main container */
+ 
+.container{
+  width:min(1180px,100%);
+  margin:0 auto;
+  padding:84px 16px 32px;
+}
+ 
+/* Hero / heading card */
+ 
+.hero{
+  margin-top:4px;
+  margin-bottom:18px;
+  border-radius:20px;
+  padding:18px 18px 16px;
+  color:var(--ink);
+  background:var(--card);
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+ 
+.hero::after{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.14);
+  top:-85px;
+  right:-75px;
+}
+ 
+.hero small{
+  display:inline-flex;
+  padding:6px 11px;
+  border-radius:999px;
+  background:var(--accentb);
+  border:1px solid rgba(212,84,14,.22);
+  font-weight:700;
+  margin-bottom:8px;
+  font-size:11px;
+  color:var(--accent);
+}
+ 
+.hero h2{
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: -2px;
+  font-size:clamp(22px,4.5vw,30px);
+  line-height:1.15;
+  max-width:700px;
+}
+ 
+.hero p{
+  margin-top:8px;
+  color:var(--ink2);
+  max-width:640px;
+  font-size:13px;
+}
+ 
+/* Section head */
+ 
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin:4px 0 12px;
+}
+ 
+.section-title{
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  font-size:18px;
+}
+ 
+.section-subtitle{
+  color:var(--ink3);
+  font-size:13px;
+}
+ 
+/* Chapters list */
+ 
+.chapters-list{
+  list-style:none;
+  padding:0;
+  display:grid;
+  gap:12px;
+}
+ 
+.chapter-item{
+  background:var(--card);
+  border-radius:20px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:0.2s ease;
+  box-shadow:0 12px 35px rgba(26,24,20,.08);
+}
+ 
+.chapter-item:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+ 
+.chapter-item:active{
+  transform:scale(0.97);
+}
+ 
+.chapter-link{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  text-decoration:none;
+  color:var(--ink);
+  padding:14px 16px;
+  gap:10px;
+}
+ 
+.chapter-content{
+  flex:1;
+  min-width:0;
+}
+ 
+.chapter-name{
+  font-size:15px;
+  font-weight:900;
+  color:var(--ink);
+  margin-bottom:4px;
+  line-height:1.35;
+}
+ 
+.chapter-counts{
+  font-size:13px;
+  color:var(--ink3);
+}
+ 
+.chapter-arrow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:22px;
+  height:22px;
+  color:var(--primary);
+}
+ 
+.chapter-arrow svg{
+  width:20px;
+  height:20px;
+  stroke:var(--primary);
+  stroke-width:2.5;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+ 
+/* Skeletons */
+ 
+.skel{
+  background:linear-gradient(90deg,var(--bg2),#FDFCF9,var(--bg2));
+  background-size:200% 100%;
+  animation:shimmer 1.2s infinite;
+  border-radius:20px;
+}
+ 
+html[data-theme="dark"] .skel{
+  background:linear-gradient(90deg,#111111,#000000,#111111);
+}
+ 
+@keyframes shimmer{
+  to{background-position-x:-200%}
+}
+ 
+.skel-ch{
+  height:72px;
+  margin-bottom:12px;
+}
+ 
+.load-skels .skel{
+  height:72px;
+  margin-bottom:12px;
+}
+ 
+/* Toast-style empty text */
+ 
+.empty-text{
+  text-align:center;
+  padding:50px 18px;
+  color:var(--ink3);
+  font-weight:700;
+}
+ 
+/* Responsive */
+ 
+@media (max-width:720px){
+  .app-header{
+    padding:10px 12px;
+  }
+  .container{
+    padding:80px 14px 26px;
+  }
+  .hero{
+    padding:16px 16px 14px;
+  }
+  .chapter-link{
+    padding:13px 14px;
+  }
+}
+ 
+@media (max-width:420px){
+  .brand-text h1{
+    max-width:46vw;
+    font-size:15px;
+  }
+  .hero h2{
+    font-size:19px;
+  }
+  .chapter-name{
+    font-size:14px;
+  }
+}
+</style>
+  <script>
+// debugger-protection.js
+(function() {
+  'use strict';
+  var REDIRECT = 'kehamhai.html';
+  var _dtFired = false;
+  var _threshold = 160;
+ 
+  function _redirect() {
+    if (_dtFired) return;
+    _dtFired = true;
+    window.location.replace(REDIRECT);
+  }
+ 
+  function _checkSize() {
+    var w = window.outerWidth - window.innerWidth;
+    var h = window.outerHeight - window.innerHeight;
+    if (w > _threshold || h > _threshold) _redirect();
+  }
+ 
+  setInterval(_checkSize, 600);
+ 
+  setInterval(function() {
+    (function() {
+      var t = new Date();
+      debugger;
+      if (new Date() - t > 100) _redirect();
+    })();
+  }, 3000);
+ 
+  
+ 
+  ['selectstart','dragstart','copy','cut'].forEach(function(ev) {
+    document.addEventListener(ev, function(e) {
+      e.preventDefault();
+      return false;
+    });
+  });
+ 
+  
+ 
+  window.addEventListener('beforeprint', function(e) {
+    e.stopImmediatePropagation();
+    window.print = function() { return false; };
+  }, true);
+ 
+  try {
+    var _n = function() {};
+    ['log','warn','error','info','debug','table','dir','dirxml','trace','group','groupCollapsed','groupEnd','time','timeEnd','profile','profileEnd','count','clear'].forEach(function(m) {
+      if (console[m]) console[m] = _n;
+    });
+  } catch(_) {}
+ 
+  document.documentElement.style.setProperty('-webkit-user-select','none');
+  document.documentElement.style.setProperty('-moz-user-select','none');
+  document.documentElement.style.setProperty('-ms-user-select','none');
+  document.documentElement.style.setProperty('user-select','none');
+})();
+</script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+ </head>
+ <body>
+  <header class="app-header">
+   <div class="brand-row">
+    <button class="back-btn" onclick="history.back()">
+     <svg viewBox="0 0 24 24">
+      <polyline points="15 18 9 12 15 6" />
+     </svg>
+    </button>
+    <div class="brand-text">
+     <h1 id="back-label">Subjects</h1>
+     <p id="sub-label">Chapters list</p>
+    </div>
+   </div>
+   <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><span id="theme-emoji">🌞</span></button>
+  </header>
+  <main class="container">
+   <section class="hero">
+    <small id="hero-tag">Subject • Chapters</small>
+    <h2 id="hero-title">Loading...</h2>
+    <p id="hero-subtitle">All chapters, lectures, notes and practice material for your selected subject, neatly organised in one place.</p>
+   </section>
+   <div class="section-head">
+    <div>
+     <div class="section-title">Chapters</div>
+     <div class="section-subtitle" id="chapter-subtitle">Tap on a chapter to open videos and notes.</div>
+    </div>
+   </div>
+   <ul class="chapters-list" id="ch-list"></ul>
+   <div class="load-skels" id="load-skels"></div>
+  </main>
+  <script>
+// ===== BATCH DETAILS FROM URL =====
+const QS = new URLSearchParams(location.search);
+const BATCH_ID = QS.get('batchId') || '';
+const SUBJECT_ID = QS.get('subjectId') || '';
+const BATCH_NAME = QS.get('batchName') || '';
+const SUBJECT_NAME = QS.get('subjectName') || 'Subject';
+
+// ✅ Redirect if no batch ID or subject ID
+if (!BATCH_ID || !SUBJECT_ID) location.href = '/study-v2/batches';
+
+// ===== SET DYNAMIC TITLE =====
+document.title = `PW by AS Multiverse — ${SUBJECT_NAME}`;
+
+// ✅ Update page title element
+const titleEl = document.getElementById('pageTitle');
+if (titleEl) {
+  titleEl.textContent = `PW by AS Multiverse — ${SUBJECT_NAME}`;
+}
+
+// ===== UPDATE UI ELEMENTS =====
+
+// ✅ Back button label
+document.getElementById('back-label').textContent = SUBJECT_NAME || 'Subjects';
+
+// ✅ Sub label (Batch name)
+document.getElementById('sub-label').textContent = BATCH_NAME ? `Batch: ${BATCH_NAME}` : 'Chapters list';
+
+// ✅ Hero Tag
+const heroTag = document.getElementById('hero-tag');
+if (heroTag) {
+  heroTag.textContent = `${SUBJECT_NAME} • Chapters`;
+}
+
+// ✅ Hero Title
+const heroTitle = document.getElementById('hero-title');
+if (heroTitle) {
+  heroTitle.textContent = `${SUBJECT_NAME} — Chapters`;
+}
+
+// ✅ Hero Subtitle
+const heroSubtitle = document.getElementById('hero-subtitle');
+if (heroSubtitle) {
+  heroSubtitle.textContent = `All chapters, lectures, notes and practice material for ${SUBJECT_NAME}, neatly organised in one place.`;
+}
+
+// ===== UTILITY FUNCTIONS =====
+function esc(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function ep(v) {
+  return encodeURIComponent(v || '');
+}
+
+/* Theme toggle with localStorage */
+const root = document.documentElement;
+const themeToggle = document.getElementById('theme-toggle');
+const themeEmoji = document.getElementById('theme-emoji');
+
+function applyTheme(t) {
+  root.setAttribute('data-theme', t);
+  themeEmoji.textContent = t === 'dark' ? '🌙' : '🌞';
+  localStorage.setItem('rs-theme', t);
+}
+
+(function initTheme() {
+  const saved = localStorage.getItem('rs-theme');
+  if (saved === 'dark' || saved === 'light') {
+    applyTheme(saved);
+  } else {
+    const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(preferDark ? 'dark' : 'light');
+  }
+})();
+
+themeToggle.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+/* API config */
+const PW_HDR = {
+  "Accept-Encoding": "gzip",
+  "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 11; SM-A707F Build/RP1A.200720.012)",
+  "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODM2MTQxOTQuMzQxLCJkYXRhIjp7Il9pZCI6IjZhMmQ3NTBjYmRmMWQxZTM5YzE2ZDU5YyIsInVzZXJuYW1lIjoiNjM5MTA1MTI4MiIsImZpcnN0TmFtZSI6IkFrcCIsImxhc3ROYW1lIjoiIiwib3JnYW5pemF0aW9uIjp7Il9pZCI6IjVlYjM5M2VlOTVmYWI3NDY4YTc5ZDE4OSIsIndlYnNpdGUiOiJwaHlzaWNzd2FsbGFoLmNvbSIsIm5hbWUiOiJQaHlzaWNzd2FsbGFoIn0sInJvbGVzIjpbIjViMjdiZDk2NTg0MmY5NTBhNzc4YzZlZiJdLCJjb3VudHJ5R3JvdXAiOiJJTiIsIm9uZVJvbGVzIjpbXSwidHlwZSI6IlVTRVIifSwianRpIjoiemFUZ0FOQ3pTWjI2b1hwNEZWMkV6UV82YTJkNzUwY2JkZjFkMWUzOWMxNmQ1OWMiLCJpYXQiOjE3ODMwMDkzOTR9.akzuLzyKvndr8tarVoRFQX1g3zjdKCzEf2hbjh8hGrE",
+  "client-id": "ADMIN",
+  "client-type": "MOBILE",
+  "client-version": "538",
+  "content-type": "application/json",
+  "device-meta": "{\"APP_VERSION\":\"538\",\"APP_VERSION_NAME\":\"15.32.0\",\"DEVICE_MAKE\":\"Samsung\",\"DEVICE_MODEL\":\"SM-A707F\",\"OS_VERSION\":\"11\",\"PACKAGE_NAME\":\"xyz.penpencil.physicswala\",\"network\":\"wifi_data\",\"carrier\":\"UNDEFINED\"}",
+  "randomid": "b8441281-cf24-4f70-8f70-164ed703d534",
+  "referer": "https://android.pw.live"
+};
+
+async function pw(url) {
+  return fetch(url).then(r => r.json());
+}
+
+/* Pagination + load */
+let page = 1, loading = false, done = false;
+const list = document.getElementById('ch-list');
+const lsk = document.getElementById('load-skels');
+
+function skelCount() {
+  return Math.max(3, Math.floor((window.innerHeight - 160) / 80));
+}
+
+function showSkels(container) {
+  const n = skelCount();
+  container.innerHTML = Array(n).fill('<div class="skel skel-ch"></div>').join('');
+}
+
+async function loadPage() {
+  if (loading || done) return;
+  loading = true;
+
+  if (page === 1) {
+    showSkels(list);
+  } else {
+    showSkels(lsk);
+    lsk.style.display = 'block';
+  }
+
+  try {
+    const data = await pw(`https://learnbyakp.onrender.com/api/penpencil/v2/batches/${BATCH_ID}/subject/${SUBJECT_ID}/topics?page=${page}`);
+    lsk.style.display = 'none';
+    lsk.innerHTML = '';
+    if (page === 1) list.innerHTML = '';
+
+    if (!data.success || !data.data?.length) {
+      done = true;
+      if (page === 1) {
+        list.innerHTML = '<li class="empty-text">No chapters found</li>';
+      }
+      return;
+    }
+
+    data.data.forEach(ch => {
+      const li = document.createElement('li');
+      li.className = 'chapter-item';
+      li.innerHTML =
+        `<a class="chapter-link" href="type?batchId=${ep(BATCH_ID)}&subjectId=${ep(SUBJECT_ID)}&chapterId=${ep(ch._id)}&batchName=${ep(BATCH_NAME)}&subjectName=${ep(SUBJECT_NAME)}&chapterName=${ep(ch.name)}&section=videos">
+          <div class="chapter-content">
+            <div class="chapter-name">${esc(ch.name)}</div>
+            <div class="chapter-counts">
+              ${(ch.videos || 0)} Videos · ${(ch.exercises || 0)} Exercises · ${(ch.notes || 0)} Notes
+            </div>
+          </div>
+          <span class="chapter-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </a>`;
+      list.appendChild(li);
+    });
+
+    if (data.data.length < 10) done = true;
+    else page++;
+  } catch (e) {
+    lsk.style.display = 'none';
+    lsk.innerHTML = '';
+    if (page === 1) {
+      list.innerHTML = '<li class="empty-text">Failed to load chapters. Please try again.</li>';
+    }
+  } finally {
+    loading = false;
+  }
+}
+
+/* Infinite scroll */
+window.addEventListener('scroll', () => {
+  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 150) {
+    loadPage();
+  }
+});
+
+/* Block inspect / copy (same as original) */
+(function() {
+  ['contextmenu', 'selectstart', 'dragstart', 'copy'].forEach(e => document.addEventListener(e, ev => ev.preventDefault()));
+  document.addEventListener('keydown', e => {
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+      (e.ctrlKey && ['U', 'S'].includes(e.key))
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+})();
+
+loadPage();
+</script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;a870477babf4472d87cfe5347ff3f376&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5ebbf291487d4e7291a999684971fa51&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;0e0487cc7ca24daea2fca2914f5a80b2&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+ </body>
+</html>
